@@ -12,8 +12,15 @@ class AthenticationService{
         if(sessionStorage.getItem("authenticatedUser")){
             return true;
         }
-        
         return false;
+    }
+
+    getLogedinUser(){
+        let user = sessionStorage.getItem("authenticatedUser")
+        if(user){
+            return user;
+        }
+        return "";
     }
 }
 
