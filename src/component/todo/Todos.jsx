@@ -1,10 +1,12 @@
 import React,{useEffect, useState} from "react";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import TodosDataService from "../../api/todo/TodosDataService";
 import AuthenticationService from "./AuthenticationService";
 
 function Todos(){  
     const [todos, setTodos] = useState([])
+    const [msg, setMsg] = useState([])
+    const navigate = useNavigate();
     let username = AuthenticationService.getLogedinUser();
 
     useEffect(() => {
@@ -13,20 +15,14 @@ function Todos(){
 
     const deleteTodoClicked = (id) =>{
         TodosDataService.deleteTodo(id,username)
-        .then(response => {
+        .then(response => {           
+            setMsg({message : `todo ${id} is Deleted`})
             refreshTodos();
-            setTodos({message : `todo ${id} is Deleted`})
         })       
     }
 
-    const updateTodoClicked = (id) =>{
-        // TodosDataService.deleteTodo(id,username)
-        // .then(response => {
-        //     refreshTodos();
-        //     setTodos({message : `todo ${id} is Deleted`})
-        // })       
-        window.history.replaceState(null, "New Page Title", `/todo/${id}`);
-        //console.log('hi')
+    const updateTodoClicked = (id) =>{              
+        navigate(`/todo/${id}`)
     }
 
     const refreshTodos = () => {
@@ -38,7 +34,7 @@ function Todos(){
         <div className="Todos">
             <h1>Todo Page</h1>
             <div className="container">
-                <div className="alert alert-success">{todos.message}</div>
+                {msg.message != null && <div className="alert alert-success">{msg.message}</div>}
                 <table className="table table-responsive table-striped">
                     <thead>
                         <tr>                    
@@ -58,7 +54,6 @@ function Todos(){
                                     <td>{todo.done.toString()}</td>
                                     <td><button onClick={()=> updateTodoClicked(todo.id)} className="btn btn-success">Update</button></td>
                                     <td><button onClick={()=> deleteTodoClicked(todo.id)} className="btn btn-warning">Delete</button></td>
-                                    
                                 </tr>
                             )
                         }

@@ -20,8 +20,8 @@ function TodoApp(){
                     <Route path='/login' element={<Login/>}></Route>
                     <Route path="/*" element={<ErrorComponent/>}></Route>
                     <Route path='/welcome/:name' element={<AuthenticatedRoute><WelcomeComponent/></AuthenticatedRoute>}> </Route>  
-                    <Route path="/todos" element={<AuthenticatedRoute><Todos/></AuthenticatedRoute>}></Route>
-                    <Route path="/todo/:id" element={<AuthenticatedRoute><UpdateTodos/></AuthenticatedRoute>}></Route>              
+                    <Route path="/todo/:id" element={<AuthenticatedRoute><UpdateTodos/></AuthenticatedRoute>}></Route>
+                    <Route path="/todos" element={<AuthenticatedRoute><Todos/></AuthenticatedRoute>}></Route>                                  
                     <Route path="/logout" element={<AuthenticatedRoute><Logout/></AuthenticatedRoute>}></Route>
                 </Routes>
                 <FooterComponent/>                
