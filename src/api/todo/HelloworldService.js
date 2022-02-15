@@ -9,8 +9,19 @@ class HelloworldService{
     }
 
     excuteHelloworldBeenPathVarService(name){
-        console.log(name)
-        return axios.get(`http://localhost:8080/hello-world-been/path/${name}`)
+        //console.log(name)
+        // let username = "ganu";
+        // let password = "12345";
+
+        // let basic = "Basic " + window.btoa(username +":"+password);
+
+         return axios.get(`http://localhost:8080/hello-world-been/path/${name}`,
+         //{
+        //     headers:{
+        //         authorization : basic,
+        //     }
+        // }
+        )
     }
 }
 

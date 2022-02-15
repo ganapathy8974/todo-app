@@ -1,3 +1,4 @@
+import moment from "moment";
 import React,{useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import TodosDataService from "../../api/todo/TodosDataService";
@@ -25,6 +26,10 @@ function Todos(){
         navigate(`/todo/${id}`)
     }
 
+    const addClicked = () =>{              
+        navigate(`/todo/-1`)
+    }
+
     const refreshTodos = () => {
         TodosDataService.getTodos(username)
         .then(response =>{setTodos(response.data)})
@@ -35,6 +40,9 @@ function Todos(){
             <h1>Todo Page</h1>
             <div className="container">
                 {msg.message != null && <div className="alert alert-success">{msg.message}</div>}
+                <div className="row">
+                    <button className="btn btn-success" onClick={addClicked}>Add Todo</button>
+                </div>
                 <table className="table table-responsive table-striped">
                     <thead>
                         <tr>                    
@@ -50,7 +58,7 @@ function Todos(){
                             todos.map(todo =>
                                 <tr key={todo.id}>
                                     <td>{todo.description}</td>
-                                    <td>{todo.date.toString()}</td>
+                                    <td>{moment(todo.date).format('DD-MM-YYYY')}</td>
                                     <td>{todo.done.toString()}</td>
                                     <td><button onClick={()=> updateTodoClicked(todo.id)} className="btn btn-success">Update</button></td>
                                     <td><button onClick={()=> deleteTodoClicked(todo.id)} className="btn btn-warning">Delete</button></td>
@@ -58,7 +66,7 @@ function Todos(){
                             )
                         }
                     </tbody>
-                </table>
+                </table>                
             </div>
         </div>
     )

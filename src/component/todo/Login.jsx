@@ -17,17 +17,47 @@ function Login(){
     }
 
     const loginClicked = () =>{
-       
-        if(username === "ganu" && password === "12345"){
-            AuthenticationService.registerSuccess(username,password)
-            setHasLoginFailed(false);
-            // setHasLoginSuccess(true);
-            navigate('/welcome/' + username);
+       /**?
+        * Hea
+        */
+        // if(username === "ganu" && password === "12345"){
+        //     AuthenticationService.registerSuccess(username,password)
+        //     setHasLoginFailed(false);
+        //     // setHasLoginSuccess(true);
+        //     navigate('/welcome/' + username);
            
-        }else{
-            setHasLoginFailed(true);
-            // setHasLoginSuccess(false);
-        }
+        // }else{
+        //     setHasLoginFailed(true);
+        //     // setHasLoginSuccess(false);
+        // }
+
+        // AuthenticationService.excuteBasicAuth(username,password)
+        // .then(() =>{
+        //     AuthenticationService.registerSuccess(username,password)
+        //     setHasLoginFailed(false);
+        //     // setHasLoginSuccess(true);
+        //     navigate('/welcome/' + username);
+        // })
+        // .catch(
+        //     ()=>{
+        //         setHasLoginFailed(true);
+        //         // setHasLoginSuccess(false);
+        //     }
+        // )
+
+        AuthenticationService.excuteJWTAuth(username,password)
+        .then((response) =>{
+            AuthenticationService.registerSuccess(username,response.data.token)
+            setHasLoginFailed(false);
+            //setHasLoginSuccess(true);
+            navigate('/welcome/' + username);
+        })
+        .catch(
+            ()=>{
+                setHasLoginFailed(true);
+                //setHasLoginSuccess(false);
+            }
+        )
     }
 
     return(

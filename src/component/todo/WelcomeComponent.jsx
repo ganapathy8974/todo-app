@@ -19,7 +19,13 @@ function WelcomeComponent(){
     }
 
     const handleError = (error) => {
-        console.log(error.response)
+        if(error.message){
+            setMessage(error.message);
+        }
+
+        if(error.response && error.response.data){
+            setMessage(error.response.data.message);
+        }
     }
 
     return(
